@@ -1,0 +1,5 @@
+ldap_groups:
+  - { cn: "intern", gid: "20001" }
+  - { cn: "vendor", gid: "20002" }
+  - { cn: "delegate", gid: "20003" }
+

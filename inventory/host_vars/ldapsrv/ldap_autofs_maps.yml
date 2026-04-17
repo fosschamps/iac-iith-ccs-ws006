@@ -1,0 +1,4 @@
+ldap_autofs_maps:
+  - name: "auto.export-home"
+    entry: "192.168.9.51:/export/home/&"
+

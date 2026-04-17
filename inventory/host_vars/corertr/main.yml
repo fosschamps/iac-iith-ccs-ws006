@@ -1,0 +1,40 @@
+container_name: corertr
+image_alias: images:debian/12/cloud
+lxd_profile: core-router-profile
+user_name: owner
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+interfaces:
+  - name: eth0
+    parent: br-isl
+    mode: static
+    address: 192.168.255.1/24
+    routes:
+      - to: 0.0.0.0/0
+        via: 192.168.255.50
+      - to: 192.168.9.0/24
+        via: 192.168.255.49
+    dns:
+      - 192.0.2.6
+      - 8.8.8.8
+  - name: eth1
+    parent: br-noc
+    mode: static
+    address: 192.168.0.1/24
+  - name: eth2
+    parent: br-lan
+    mode: static
+    address: 192.168.1.1/24
+
+packages:
+  - openssh-server
+
+lan_interfaces:
+  - iface: eth1
+    ip: "192.168.0.1"
+    cidr: 24
+  - iface: eth2
+    ip: "192.168.1.1"
+    cidr: 24
+
+

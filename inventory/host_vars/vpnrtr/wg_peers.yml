@@ -1,0 +1,11 @@
+# peers managed by IaC
+wg_peers:
+  - hostname: syed-laptop
+    wg_public_key: "cmaUcZKNt0NWPtvkEMii+6rOKb43ggUypnNZOdliAGI="
+    allowed_ips:
+    - { net: "192.168.9.100", mask: 32 }
+  - hostname: maruthi-laptop
+    wg_public_key: "Pm1PJWxCz1orBCcr5MGxlg5BKX+dJVs8eoVkaJ7+hnk="
+    allowed_ips:
+    - { net: "192.168.9.99", mask: 32 }
+

@@ -1,0 +1,36 @@
+ldap_ou: "People"
+ldap_users:
+  - uid: "amar"
+    cn: "Amar"
+    sn: "amar"
+    givenName: "Amar"
+    displayName: "Amar"
+    uidNumber: 30001
+    gidNumber: 20001
+    userPassword: "amar123"
+    homeDirectory: "/export/home/amar"
+    loginShell: "/bin/bash"
+
+  - uid: "akbar"
+    cn: "Akbar"
+    sn: "akbar"
+    givenName: "Akbar"
+    displayName: "Akbar"
+    uidNumber: 30002
+    gidNumber: 20002
+    userPassword: "akbar123"
+    homeDirectory: "/export/home/akbar"
+    loginShell: "/bin/bash"
+
+  - uid: "antony"
+    cn: "Antony"
+    sn: "antony"
+    givenName: "Antony"
+    displayName: "Antony"
+    uidNumber: 30003
+    gidNumber: 20003
+    userPassword: "antony123"
+    homeDirectory: "/export/home/antony"
+    loginShell: "/bin/bash"
+
+

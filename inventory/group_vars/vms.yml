@@ -1,0 +1,13 @@
+user_name: owner
+vm_disk1: /var/lib/libvirt/images/{{ vm_name }}.qcow2
+vm_ram: 4096        # in MB
+vm_vcpus: 2
+vm_disk1_size: 20    # in GB
+vm_definition: vm-definition-2nics.xml.j2
+machine_type: q35
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+packages:
+  - cloud-init
+  - qemu-guest-agent
+

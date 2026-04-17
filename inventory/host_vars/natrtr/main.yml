@@ -1,0 +1,42 @@
+vm_name: natrtr
+vm_image: /var/lib/libvirt/images/debian-12-generic-amd64-20260210-2384.qcow2
+vm_disk1: /var/lib/libvirt/images/{{ vm_name }}-disk1.qcow2
+vm_disk1_size: 40 # in GB
+vm_network1_type: bridge #Bridge
+vm_network1: br-wan
+vm_network2_type: bridge #Bridge
+vm_network2: br-isl
+vm_definition: vm-definition-2nics.xml.j2
+user_name: owner
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+interfaces:
+  - name: enp1s0
+    parent: br-wan
+    mode: static
+    address: 198.18.1.81/24
+    routes:
+      - to: 0.0.0.0/0
+        via: 198.18.1.1
+    dns:
+      - 192.0.2.6
+      - 8.8.8.8
+  - name: enp2s0
+    parent: br-isl
+    mode: static
+    address: 192.168.255.50/24
+
+wan_iface: enp1s0
+wan_ip: "198.18.1.81"
+wan_cidr: 24
+
+lan_interfaces:
+  - iface: enp2s0
+    ip: "192.168.255.50"
+    cidr: 24
+    routes:
+    - { to: "192.168.0.0/24", via: "192.168.255.1" }
+    - { to: "192.168.1.0/24", via: "192.168.255.1" }
+
+nft_rules_path: /etc/nftables.conf
+

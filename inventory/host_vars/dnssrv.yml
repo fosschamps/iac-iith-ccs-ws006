@@ -1,0 +1,29 @@
+container_name: dnssrv
+image_alias: images:debian/12/cloud
+lxd_profile: dns-server-profile
+user_name: owner
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+interfaces:
+  - name: eth0
+    parent: br-noc
+    mode: static
+    address: 192.168.0.6/24
+    routes:
+    - to: "0.0.0.0/0"
+      via: "192.168.0.1"
+    dns:
+    - 192.0.2.6
+    - 8.8.8.8
+
+packages:
+  - openssh-server
+
+dns_zone: "example.org"
+dns_zone_file: "db.example.org"
+dns_forwarders:
+  - "192.0.2.1"
+  - "192.0.2.28"
+
+fence_logging_enabled: false
+fence_upstream_mb: "198.19.0.50"

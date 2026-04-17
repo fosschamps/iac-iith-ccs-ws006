@@ -1,0 +1,24 @@
+ethernets:
+  - name: eth1
+    macaddress: 3c:ec:ef:a2:7f:9c
+    dhcp4: no
+  - name: eno1
+    macaddress: 3c:ec:ef:a2:81:21
+    dhcp4: no
+
+base_netplan_file: /etc/netplan/89-ansible-ethernets.yaml
+bridges:
+  - name: br-wan
+    macaddress: 3c:ec:ef:a2:7f:9c
+    dhcp4: yes
+    interfaces: [ eth1 ]
+  - name: br-isl
+    address: 192.168.255.2/24
+    dhcp4: no
+  - name: br-noc
+    address: 192.168.0.2/24
+    dhcp4: no
+  - name: br-lan
+    address: 192.168.1.2/24
+    dhcp4: no
+

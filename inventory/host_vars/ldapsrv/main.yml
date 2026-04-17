@@ -1,0 +1,41 @@
+container_name: ldapsrv
+image_alias: images:debian/12/cloud
+lxd_profile: ldap-server-profile
+user_name: owner
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+interfaces:
+  - name: eth0
+    parent: br-noc
+    mode: static
+    address: 192.168.0.8/24
+    routes:
+    - to: "0.0.0.0/0"
+      via: "192.168.0.1"
+    dns:
+    - 192.168.0.6
+    - 192.0.2.6
+    - 8.8.8.8
+
+packages:
+  - openssh-server
+
+ldap_domain: "ccs-ws006.ccs.iith.ac.in"
+ldap_organization: "Emulated Corporation"
+ldap_server: "ldapsrv"
+ldap_hostname: "ldapsrv.ccs-ws006.ccs.iith.ac.in"
+ldap_server_fqdn: "ldapsrv.ccs-ws006.ccs.iith.ac.in"
+ldap_server_shn: "ldapsrv"
+ldap_server_ip: 192.168.0.8
+hosts_entries:
+  - { ip: "{{ ldap_server_ip }}", fqhn: "{{ ldap_server_fqdn }}", shn: "{{ ldap_server }}" }
+
+ldap_admin_dn: "cn=admin,dc=ccs-ws006,dc=ccs,dc=iith,dc=ac,dc=in"
+ldap_base_dn: "dc=ccs-ws006,dc=ccs,dc=iith,dc=ac,dc=in"
+ldap_search_base: "dc=ccs-ws006,dc=ccs,dc=iith,dc=ac,dc=in"
+
+sssd_conf_path: "/etc/sssd/sssd.conf"
+ldap_ca_src: "/etc/ssl/certs/{{ ldap_server_shn }}-ca.crt" # path on LDAP server
+ldap_ca_dest: "/usr/local/share/ca-certificates/{{ ldap_server_shn }}-ca.crt"
+
+

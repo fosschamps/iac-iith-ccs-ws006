@@ -1,0 +1,17 @@
+container_name: lanhost1
+image_alias: ubuntu:24.04
+lxd_profile: lanhost-profile
+user_name: owner
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+interfaces:
+  - name: eth0
+    parent: br-lan
+    mode: static
+    address: 192.168.1.51/24
+    routes:
+    - to: "0.0.0.0/0"
+      via: "192.168.1.1"
+    dns:
+    - 192.168.0.6
+

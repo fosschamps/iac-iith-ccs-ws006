@@ -1,0 +1,24 @@
+container_name: ipamsrv
+image_alias: images:debian/12/cloud
+lxd_profile: ipam-server-profile
+user_name: owner
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+interfaces:
+  - name: eth0
+    parent: br-noc
+    mode: static
+    address: 192.168.0.5/24
+    routes:
+    - to: "0.0.0.0/0"
+      via: "192.168.0.1"
+    dns:
+    - 192.0.2.6
+    - 8.8.8.8
+
+packages:
+  - openssh-server
+ 
+netbox_server_ip: 192.168.0.5
+netbox_nginx_server_name: "ipamsrv.example.org"
+

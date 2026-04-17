@@ -1,0 +1,20 @@
+container_name: apisrv
+image_alias: images:debian/12/cloud
+lxd_profile: api-server-profile
+user_name: owner
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+interfaces:
+  - name: eth0
+    parent: br-noc
+    mode: static
+    address: 192.168.0.19/24
+    routes:
+    - to: "0.0.0.0/0"
+      via: "192.168.0.1"
+    dns:
+    - 192.0.2.6
+    - 8.8.8.8
+
+packages:
+  - openssh-server

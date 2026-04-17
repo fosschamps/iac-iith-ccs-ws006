@@ -1,0 +1,37 @@
+vm_name: vpnrtr
+vm_image: /var/lib/libvirt/images/debian-12-generic-amd64-20260210-2384.qcow2
+vm_disk1: /var/lib/libvirt/images/{{ vm_name }}-disk1.qcow2
+vm_disk1_size: 40 # in GB
+vm_network1_type: bridge #Bridge
+vm_network1: br-wan
+vm_network2_type: bridge #Bridge
+vm_network2: br-isl
+vm_definition: vm-definition-2nics.xml.j2
+user_name: owner
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+interfaces:
+  - name: enp1s0
+    parent: br-wan
+    mode: static
+    address: 198.18.1.82/24
+    routes:
+      - to: 0.0.0.0/0
+        via: 198.18.1.1
+    dns:
+      - 192.0.2.6
+      - 8.8.8.8
+  - name: enp2s0
+    parent: br-isl
+    mode: static
+    address: 192.168.255.49/24
+
+lan_iface: enp2s0
+wg_interface: wg0
+wg_ext_ip: 198.18.1.82
+wg_port: 51820
+wg_network: 192.168.9.0
+wg_int_ip: 192.168.9.49
+wg_cidr: 24
+wg_public_key: "Wfe6nP+asXjpE1QRpBddISgQ2OttOTQf/puBv6RejW8="
+
