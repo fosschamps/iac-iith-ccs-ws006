@@ -28,7 +28,7 @@ $ ansible-playbook -i ~/iac-iith-ccs-ws006/inventory/hosts.yml -e 'target_host="
 
 To setup Core router and DNS server LXDs
 ```
-$ ansible-playbook -i ~/iac-iith-ccs-ws006/inventory/hosts.yml -e 'target_host=ccs-ws006' -e '{"lxds_to_provision": ["corertr", "dnssrv", "ldapsrv"]}' playbooks/setup_lxds.yml
+$ ansible-playbook -i ~/iac-iith-ccs-ws006/inventory/hosts.yml -e 'target_host=ccs-ws006' -e '{"lxds_to_provision": ["corertr", "dnssrv", "ldapsrv", "radiussrv"]}' playbooks/setup_lxds.yml
 ```
 
 ```
@@ -82,6 +82,10 @@ To setup LDAP client on targets
 ```
 $ ansible-playbook -i ~/iac-iith-ccs-ws006/inventory/hosts.yml -e 'ansible_ssh_common_args="-o ProxyJump=maruthisi@198.18.1.106"' -e 'target_host=ldap_clients' playbooks/setup_ldap_client.yml
 ```
+To setup RADIUS server
+
+```
+$ ansible-playbook -i ~/iac-iith-ccs-ws006/inventory/hosts.yml  -e 'ansible_ssh_common_args="-o ProxyJump=maruthisi@198.18.1.106"' -e 'target_host=radiussrv' playbooks/setup_radius_server_freeradius.yml
 
 
 To setup IPAM server LXD

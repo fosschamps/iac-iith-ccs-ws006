@@ -1,0 +1,6 @@
+freeradius_client_name: "ccs-ws006"
+freeradius_client_ip: "192.168.0.2"
+freeradius_client_secret: "testing123"
+freeradius_user_name: "testuser"
+freeradius_user_password: "password123"
+
